@@ -1,4 +1,4 @@
-CREATE TABLE transfer(
+CREATE TABLE IF NOT EXISTS transfer(
     transfer_id serial PRIMARY KEY,
     account_id_recipient integer NOT NULL,
     amount decimal(10, 2) NOT NULL,

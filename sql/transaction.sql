@@ -1,4 +1,4 @@
-CREATE TABLE transaction(
+CREATE TABLE IF NOT EXISTS transaction(
     transaction_id serial PRIMARY KEY,
     transaction_date TIMESTAMP NOT NULL,
     amount decimal(10, 2) NOT NULL, 
