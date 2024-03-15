@@ -1,4 +1,4 @@
-CREATE TABLE account(
+CREATE TABLE IF NOT EXISTS account(
     account_id serial PRIMARY KEY,
     client_name varchar(200) NOT NULL,
     client_firstname varchar(200) NOT NULL,

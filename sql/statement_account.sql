@@ -1,4 +1,4 @@
-CREATE TABLE statement_account(
+CREATE TABLE IF NOT EXISTS statement_account(
     statement_account_id serial PRIMARY KEY,
     statement_account_date TIMESTAMP NOT NULL,
     reference varchar(50) NOT NULL,
