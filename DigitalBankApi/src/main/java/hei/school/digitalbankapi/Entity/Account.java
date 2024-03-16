@@ -3,8 +3,6 @@ package hei.school.digitalbankapi.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.math.BigDecimal;
 import java.sql.Date;
 
 
@@ -12,6 +10,7 @@ import java.sql.Date;
 @Setter
 @AllArgsConstructor
 public class Account {
+    private int accountId;
     private String clientName;
     private String clientFirstName;
     private Date birthDate;
