@@ -64,7 +64,7 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
 
     @Override
     public void update(int id, Account toUpdate) throws SQLException {
-        String sql = "UPDATE account SET  client_name = ?,   client_firstname = ?,  birth_date = ?, monthly_pay = ?, overdrawn_status = ?, account_type = ? WHERE account_id = ?";
+        String sql = "UPDATE transaction SET  client_name = ?,   client_firstname = ?,  birth_date = ?, monthly_pay = ?, overdrawn_status = ?, account_type = ? WHERE account_id = ?";
         try (PreparedStatement updateSql = connection.prepareStatement(sql)){
             updateSql.setString(1,toUpdate.getClientName());
             updateSql.setString(2,toUpdate.getClientFirstName());
