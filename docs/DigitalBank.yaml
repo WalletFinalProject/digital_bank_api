@@ -1,0 +1,885 @@
+openapi: 3.0.3
+info:
+  title: Digital Bank
+  description: Digital Bank
+  version: 1.1.1
+servers:
+  - url: 'https://digital_bank.com'
+paths:
+  /accounts:
+    get:
+      tags:
+        - "Accounts"
+      description: Get all accounts
+      summary: Get a list of all accounts
+      operationId: getAccounts
+      responses:
+        200:
+          $ref: '#/components/responses/AccountList_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /account/{accountId}:
+    get:
+      tags:
+        - "Accounts"
+      description: Get an account by id
+      summary: Get an account by id
+      operationId: getAccountById
+      parameters:
+        - in: query
+          name: accountId
+          description: Get an account by id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateAccount'
+        400:
+          $ref: '#/components/schemas/BadRequestBody'
+        403:
+          $ref: '#/components/schemas/ForbiddenBody'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - "Accounts"
+      description: Create or update an existing account
+      summary: Create or update an account
+      operationId: createOrUpdateAccount
+      parameters:
+        - in: query
+          name: accountId
+          description: create oe update an account
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateAccount'
+        400:
+          $ref: '#/components/schemas/BadRequestBody'
+        403:
+          $ref: '#/components/schemas/ForbiddenBody'
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - "Accounts"
+      description: Delete an existing account
+      operationId: deleteAnAccount
+      parameters:
+        - in: query
+          name: accountId
+          description: Delete an account
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /transactions:
+    get:
+      tags:
+        - "Transactions"
+      description: Get all transactions
+      operationId: getTransactions
+      summary: Get a list of all transactions
+      responses:
+        200:
+          $ref: '#/components/responses/TransactionList_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /transaction/{transactionId}:
+    get:
+      tags:
+        - "Transactions"
+      description: Get a transaction by id
+      summary: Get a transaction by id
+      operationId: getTransactionById
+      parameters:
+        - in: query
+          name: transactionId
+          description: Get a transaction by id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateTransaction'
+        400:
+          $ref: '#/components/schemas/BadRequestBody'
+        403:
+          $ref: '#/components/schemas/ForbiddenBody'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - "Transactions"
+      description: Create or update an existing transaction
+      operationId: crUpdateTransactions
+      parameters:
+        - in: query
+          name: transactionId
+          description: Create or update an existing transaction
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateTransaction'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - "Transactions"
+      description: Delete a transaction if it has been completed
+      operationId: deleteTransaction
+      parameters:
+        - in: query
+          name: transactionId
+          description: Delete a transaction if it has been completed
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /transaction/{transactionId}/category:
+    put:
+      tags:
+        - "Transactions"
+      description: Categorize an existing transaction
+      operationId: crUpdateCategory
+      parameters:
+        - in: query
+          name: transactionId
+          description: Categorize an existing transaction
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /accountsStatements:
+    get:
+      tags:
+        - "Accounts Statements"
+      description: Get all accounts statements
+      operationId: getAllAccountsStatements
+      summary: get a list of all accounts statements
+      responses:
+        200:
+          $ref: '#/components/responses/AccountStatementList_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /accountStatement/{accountStatementId}:
+    get:
+      tags:
+        - "Accounts Statements"
+      description: Get an account statement by id
+      summary: Get an account statement by id
+      operationId: getAccountStatementById
+      parameters:
+        - in: query
+          name: accountStatementId
+          description: Get an account statement by id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CreateAccountStatement'
+        400:
+          $ref: '#/components/schemas/BadRequestBody'
+        403:
+          $ref: '#/components/schemas/ForbiddenBody'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - "Accounts Statements"
+      description: Create or update an existing account statement
+      operationId: crUpdateAccountStatement
+      parameters:
+        - in: query
+          name: AccountStatementId
+          description: Create or update an existing account statement
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CreateAccountStatement'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - "Accounts Statements"
+      description: Delete an account statement
+      operationId: deleteAccountStatement
+      parameters:
+        - in: query
+          name: AccountStatementId
+          description: Delete an account statement
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /categories:
+    get:
+      tags:
+        - "Categories"
+      description: Get all categories
+      summary: A list of categories
+      operationId: getCategories
+      responses:
+        200:
+          $ref: '#/components/responses/CategoryList_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /category/{categoryId}:
+    get:
+      tags:
+        - "Categories"
+      description: Get a category by id
+      summary: Get a category by id
+      operationId: getCategoryById
+      parameters:
+        - in: query
+          name: categoryId
+          description: Get a category by id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateCategory'
+        400:
+          $ref: '#/components/schemas/BadRequestBody'
+        403:
+          $ref: '#/components/schemas/ForbiddenBody'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - "Categories"
+      description: Create or update an existing a category
+      operationId: crUpdateCategory
+      parameters:
+        - in: query
+          name: categoryId
+          description: Create or update an existing category
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateCategory'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - "Categories"
+      description: Delete a category
+      operationId: deleteCategory
+      parameters:
+        - in: query
+          name: categoryId
+          description: Delete a category
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /balanceHistories:
+    get:
+      tags:
+        - "Balance Histories"
+      description: Get all balance histories
+      summary: A list of balance histories
+      operationId: getBalanceHistories
+      responses:
+        200:
+          $ref: '#/components/responses/BalanceHistoryList_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /balanceHistory/{balanceHistoryId}:
+    get:
+      tags:
+        - "Balance Histories"
+      description: Get a balance history by id
+      summary: Get a balance history by id
+      operationId: getBalanceHistoryById
+      parameters:
+        - in: query
+          name: balanceHistoryId
+          description: Get a balance history by id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateBalanceHistory'
+        400:
+          $ref: '#/components/schemas/BadRequestBody'
+        403:
+          $ref: '#/components/schemas/ForbiddenBody'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - "Balance Histories"
+      description: Create or update an existing balance history
+      operationId: crUpdateBalanceHistory
+      parameters:
+        - in: query
+          name: balanceHistoryId
+          description: Create or update an existing balance history
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateBalanceHistory'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - "Balance Histories"
+      description: Delete a balance history
+      operationId: deleteBalanceHistory
+      parameters:
+        - in: query
+          name: balanceHistoryId
+          description: Delete a balance history
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /transfer:
+    get:
+      tags:
+        - "Transfer"
+      description: Get all transfer
+      summary: A list of transfer
+      operationId: getTransfer
+      responses:
+        200:
+          $ref: '#/components/responses/TransferList_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /transfer/{transferId}:
+    get:
+      tags:
+        - "Transfer"
+      description: Get a transfer by id
+      summary: Get transfer by id
+      operationId: getTransferById
+      parameters:
+        - in: query
+          name: transferId
+          description: Get a transfer by id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateTransfer'
+        400:
+          $ref: '#/components/schemas/BadRequestBody'
+        403:
+          $ref: '#/components/schemas/ForbiddenBody'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - "Transfer"
+      description: Create or update an existing transfer
+      operationId: crUpdateTransferHistory
+      parameters:
+        - in: query
+          name: transferId
+          description: Create or update an existing transfer
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateTransfer'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - "Transfer"
+      description: Delete a transfer
+      operationId: deleteTransfer
+      parameters:
+        - in: query
+          name: transferId
+          description: Delete a transfer
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /bank:
+    get:
+      tags:
+        - "Bank"
+      description: Get all bank
+      summary: A list of bank
+      operationId: getBank
+      responses:
+        200:
+          $ref: '#/components/responses/TransferList_200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /bank/{bankId}:
+    get:
+      tags:
+        - "Bank"
+      description: Get a bank by id
+      summary: Get bank by id
+      operationId: getBankById
+      parameters:
+        - in: query
+          name: bankId
+          description: Get a bank by id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateTransfer'
+        400:
+          $ref: '#/components/schemas/BadRequestBody'
+        403:
+          $ref: '#/components/schemas/ForbiddenBody'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - "Bank"
+      description: Create or update an existing bank
+      operationId: crUpdateBank
+      parameters:
+        - in: query
+          name: bankId
+          description: Create or update an existing bank
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/CrUpdateTransfer'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - "Bank"
+      description: Delete a bank
+      operationId: deleteBank
+      parameters:
+        - in: query
+          name: bankId
+          description: Delete a bank
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+components:
+  schemas:
+    Account:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CrUpdateAccount'
+    Transaction:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CrUpdateTransaction'
+    AccountStatement:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CreateAccountStatement'
+    Category:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CrUpdateCategory'
+    BalanceHistory:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CrUpdateBalanceHistory'
+    CrUpdateCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    CrUpdateTransaction:
+      type: object
+      properties:
+        id:
+          type: integer
+        date:
+          type: string
+          format: date
+        amount:
+          type: string
+          format: bigDecimal
+        transactionType:
+          type: string
+          enum:
+            - Debit
+            - Credit
+        category:
+          allOf:
+            - $ref: '#/components/schemas/CrUpdateCategory'
+    Transfer:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CrUpdateTransfer'
+    ResponseStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        message:
+          type: string
+    ResponseBodyTemplate:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseBodyTemplate'
+        body:
+          type: object
+    BadRequestBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 400
+          message: Bad Request
+          body: { }
+    ForbiddenBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 403
+          message: Forbidden
+          body: { }
+    ErrorServerBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 500
+          message: Eternal server error
+    AccountListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Account'
+    TransactionListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Transaction'
+    AccountStatementListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/AccountStatement'
+    CategoryListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+    BalanceHistoryListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/BalanceHistory'
+    TransferListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Transfer'
+    CreateAccountStatement:
+      type: object
+      properties:
+        id:
+          type: integer
+        date:
+          type: string
+          format: date
+        reference:
+          type: string
+        motif:
+          type: string
+        credit:
+          type: string
+          format: bigDecimal
+        debit:
+          type: string
+          format: bigDecimal
+        balance:
+          type: string
+          format: bigDecimal
+    CrUpdateAccount:
+      type: object
+      properties:
+        id:
+          type: integer
+        clientName:
+          type: string
+        clientFirstName:
+          type: string
+        birthDate:
+          type: string
+          format: date
+        monthlyPay:
+          type: string
+          format: bigDecimal
+        overdrawnStatus:
+          type: string
+        accountType:
+          type: string
+    CrUpdateBalanceHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+        principalAmount:
+          type: string
+        moneyLoan:
+          type: string
+          format: bigDecimal
+        loanInterest:
+          type: string
+          format: bigDecimal
+    CrUpdateTransfer:
+      type: object
+      properties:
+        id:
+          type: integer
+        accountIdRecipient:
+          type: integer
+        amount:
+          type: string
+          format: bigDecimal
+        transferReason:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        registrationDate:
+          type: string
+          format: date
+        label:
+          type: string
+        status:
+          type: string
+    CrUpdateBank:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        creationDate:
+          type:
+  responses:
+    AccountList_200:
+      description: List of accounts
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccountListBody'
+    TransactionList_200:
+      description: List of transactions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionListBody'
+    AccountStatementList_200:
+      description: List of accounts statements
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccountStatementListBody'
+    CategoryList_200:
+      description: List of categories
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CategoryListBody'
+    BalanceHistoryList_200:
+      description: List of balance history
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BalanceHistoryListBody'
+    TransferList_200:
+      description: List of transfer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransferListBody'
+    200:
+      description: successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/responses/200'
+    400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestBody'
+    403:
+      description: FORBIDDEN
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenBody'
+    500:
+      description: ETERNAL SERVER ERROR
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorServerBody'
+
+
+
+
