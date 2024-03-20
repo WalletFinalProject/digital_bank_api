@@ -1,10 +1,11 @@
 CREATE TABLE IF NOT EXISTS transfer(
-    transfer_id serial PRIMARY KEY,
-    account_id_recipient integer NOT NULL,
-    amount Double NOT NULL,
-    transfer_reason varchar(50) NOT NULL,
-    effective_date TIMESTAMP NOT NULL,
-    registration_date TIMESTAMP NOT NULL,
-    label varchar(50),
-    status varchar(50) NOT NULL
+    id_transfer serial PRIMARY KEY,
+    id_account integer REFERENCES accounts(id_account),
+    amount decimal(10, 2) NOT NULL,
+    transfer_reason varchar(200) NOT NULL,
+    effective_date date NOT NULL,
+    registration_date date NOT NULL,
+    label varchar(200),
+    status varchar(200) NOT NULL,
+    id_balance_history integer REFERENCES balance_history(id_balance_history)
 );
