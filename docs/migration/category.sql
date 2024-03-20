@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS category(
-    category_id serial PRIMARY KEY,
-    category_name varchar(50) NOT NULL,
-    transaction_id integer REFERENCES transaction(transaction_id)
+    id_category serial PRIMARY KEY,
+    category_name varchar(200) NOT NULL,
+    description varchar(200),
+    id_transaction integer REFERENCES transactions(id_transaction)
 );

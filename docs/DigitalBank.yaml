@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Digital Bank
   description: Digital Bank
-  version: 1.1.1
+  version: 1.2.1
 servers:
   - url: 'https://digital_bank.com'
 paths:
@@ -30,7 +30,7 @@ paths:
       summary: Get an account by id
       operationId: getAccountById
       parameters:
-        - in: query
+        - in: path
           name: accountId
           description: Get an account by id
           required: true
@@ -52,7 +52,7 @@ paths:
       summary: Create or update an account
       operationId: createOrUpdateAccount
       parameters:
-        - in: query
+        - in: path
           name: accountId
           description: create oe update an account
           required: true
@@ -73,7 +73,7 @@ paths:
       description: Delete an existing account
       operationId: deleteAnAccount
       parameters:
-        - in: query
+        - in: path
           name: accountId
           description: Delete an account
           required: true
@@ -112,7 +112,7 @@ paths:
       summary: Get a transaction by id
       operationId: getTransactionById
       parameters:
-        - in: query
+        - in: path
           name: transactionId
           description: Get a transaction by id
           required: true
@@ -133,7 +133,7 @@ paths:
       description: Create or update an existing transaction
       operationId: crUpdateTransactions
       parameters:
-        - in: query
+        - in: path
           name: transactionId
           description: Create or update an existing transaction
           required: true
@@ -154,7 +154,7 @@ paths:
       description: Delete a transaction if it has been completed
       operationId: deleteTransaction
       parameters:
-        - in: query
+        - in: path
           name: transactionId
           description: Delete a transaction if it has been completed
           required: true
@@ -176,7 +176,7 @@ paths:
       description: Categorize an existing transaction
       operationId: crUpdateCategory
       parameters:
-        - in: query
+        - in: path
           name: transactionId
           description: Categorize an existing transaction
           required: true
@@ -215,7 +215,7 @@ paths:
       summary: Get an account statement by id
       operationId: getAccountStatementById
       parameters:
-        - in: query
+        - in: path
           name: accountStatementId
           description: Get an account statement by id
           required: true
@@ -236,7 +236,7 @@ paths:
       description: Create or update an existing account statement
       operationId: crUpdateAccountStatement
       parameters:
-        - in: query
+        - in: path
           name: AccountStatementId
           description: Create or update an existing account statement
           required: true
@@ -257,7 +257,7 @@ paths:
       description: Delete an account statement
       operationId: deleteAccountStatement
       parameters:
-        - in: query
+        - in: path
           name: AccountStatementId
           description: Delete an account statement
           required: true
@@ -296,7 +296,7 @@ paths:
       summary: Get a category by id
       operationId: getCategoryById
       parameters:
-        - in: query
+        - in: path
           name: categoryId
           description: Get a category by id
           required: true
@@ -317,7 +317,7 @@ paths:
       description: Create or update an existing a category
       operationId: crUpdateCategory
       parameters:
-        - in: query
+        - in: path
           name: categoryId
           description: Create or update an existing category
           required: true
@@ -338,7 +338,7 @@ paths:
       description: Delete a category
       operationId: deleteCategory
       parameters:
-        - in: query
+        - in: path
           name: categoryId
           description: Delete a category
           required: true
@@ -377,7 +377,7 @@ paths:
       summary: Get a balance history by id
       operationId: getBalanceHistoryById
       parameters:
-        - in: query
+        - in: path
           name: balanceHistoryId
           description: Get a balance history by id
           required: true
@@ -398,7 +398,7 @@ paths:
       description: Create or update an existing balance history
       operationId: crUpdateBalanceHistory
       parameters:
-        - in: query
+        - in: path
           name: balanceHistoryId
           description: Create or update an existing balance history
           required: true
@@ -419,7 +419,7 @@ paths:
       description: Delete a balance history
       operationId: deleteBalanceHistory
       parameters:
-        - in: query
+        - in: path
           name: balanceHistoryId
           description: Delete a balance history
           required: true
@@ -458,7 +458,7 @@ paths:
       summary: Get transfer by id
       operationId: getTransferById
       parameters:
-        - in: query
+        - in: path
           name: transferId
           description: Get a transfer by id
           required: true
@@ -479,7 +479,7 @@ paths:
       description: Create or update an existing transfer
       operationId: crUpdateTransferHistory
       parameters:
-        - in: query
+        - in: path
           name: transferId
           description: Create or update an existing transfer
           required: true
@@ -500,7 +500,7 @@ paths:
       description: Delete a transfer
       operationId: deleteTransfer
       parameters:
-        - in: query
+        - in: path
           name: transferId
           description: Delete a transfer
           required: true
@@ -524,7 +524,7 @@ paths:
       operationId: getBank
       responses:
         200:
-          $ref: '#/components/responses/TransferList_200'
+          $ref: '#/components/responses/BankList_200'
         400:
           $ref: '#/components/responses/400'
         403:
@@ -539,7 +539,7 @@ paths:
       summary: Get bank by id
       operationId: getBankById
       parameters:
-        - in: query
+        - in: path
           name: bankId
           description: Get a bank by id
           required: true
@@ -547,7 +547,7 @@ paths:
             type: string
       responses:
         200:
-          $ref: '#/components/schemas/CrUpdateTransfer'
+          $ref: '#/components/schemas/CrUpdateBank'
         400:
           $ref: '#/components/schemas/BadRequestBody'
         403:
@@ -560,7 +560,7 @@ paths:
       description: Create or update an existing bank
       operationId: crUpdateBank
       parameters:
-        - in: query
+        - in: path
           name: bankId
           description: Create or update an existing bank
           required: true
@@ -568,7 +568,7 @@ paths:
             type: string
       responses:
         200:
-          $ref: '#/components/schemas/CrUpdateTransfer'
+          $ref: '#/components/schemas/CrUpdateBank'
         400:
           $ref: '#/components/responses/400'
         403:
@@ -581,7 +581,7 @@ paths:
       description: Delete a bank
       operationId: deleteBank
       parameters:
-        - in: query
+        - in: path
           name: bankId
           description: Delete a bank
           required: true
@@ -625,12 +625,14 @@ components:
           type: integer
         name:
           type: string
+        description:
+          type: string
     CrUpdateTransaction:
       type: object
       properties:
         id:
           type: integer
-        date:
+        transactionDate:
           type: string
           format: date
         amount:
@@ -641,13 +643,16 @@ components:
           enum:
             - Debit
             - Credit
-        category:
-          allOf:
-            - $ref: '#/components/schemas/CrUpdateCategory'
+        label:
+          type: string
     Transfer:
       type: object
       allOf:
         - $ref: '#/components/schemas/CrUpdateTransfer'
+    Bank:
+      type: object
+      allOf:
+        - $ref:  '#/components/schemas/CrUpdateBank'
     ResponseStatus:
       type: object
       properties:
@@ -734,6 +739,14 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Transfer'
+    BankListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Bank'
     CreateAccountStatement:
       type: object
       properties:
@@ -767,13 +780,17 @@ components:
         birthDate:
           type: string
           format: date
-        monthlyPay:
+        netMonthlySalary:
           type: string
           format: bigDecimal
-        overdrawnStatus:
+        authorize_credits:
+          type: boolean
+        creation_date:
           type: string
-        accountType:
+          format: date
+        update_date:
           type: string
+          format: date
     CrUpdateBalanceHistory:
       type: object
       properties:
@@ -791,8 +808,6 @@ components:
       type: object
       properties:
         id:
-          type: integer
-        accountIdRecipient:
           type: integer
         amount:
           type: string
@@ -817,7 +832,11 @@ components:
         name:
           type: string
         creationDate:
-          type:
+          type: string
+          format: date
+        updateDate:
+          type: string
+          format: date
   responses:
     AccountList_200:
       description: List of accounts
@@ -855,6 +874,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/TransferListBody'
+    BankList_200:
+      description: List of bank
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BankListBody'
     200:
       description: successfully
       content:
