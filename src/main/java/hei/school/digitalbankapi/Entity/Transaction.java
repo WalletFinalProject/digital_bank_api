@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 public class Transaction {
-    private int transactionId;
+    private int idTransaction;
     private Timestamp transactionDate;
     private Double amount;
     private String transactionType;

@@ -56,7 +56,7 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
             insertStatement.setDate(3,toSave.getUpdateDate());
             insertStatement.setString(4,toSave.getClientName());
             insertStatement.setString(5,toSave.getClientFirstname());
-            insertStatement.setDate(6,toSave.getBirth_date());
+            insertStatement.setDate(6,toSave.getBirthDate());
             insertStatement.setDouble(7,toSave.getNetMonthlySalary());
             insertStatement.setInt(8,toSave.getIdTransaction());
             insertStatement.executeUpdate();
@@ -75,7 +75,7 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
             updateSql.setDate(3,toUpdate.getUpdateDate());
             updateSql.setString(4,toUpdate.getClientName());
             updateSql.setString(5, toUpdate.getClientFirstname());
-            updateSql.setDate(6,toUpdate.getBirth_date());
+            updateSql.setDate(6,toUpdate.getBirthDate());
             updateSql.setDouble(7,toUpdate.getNetMonthlySalary());
             updateSql.setInt(8,toUpdate.getIdTransaction());
             updateSql.setInt(9,id);

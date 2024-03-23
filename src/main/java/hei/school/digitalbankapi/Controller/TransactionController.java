@@ -23,7 +23,7 @@ public class TransactionController {
     }
 
     @PostMapping("/transaction")
-    public Transaction createTransaction(Transaction toSave) throws SQLException{
+    public Transaction createTransaction(@RequestBody Transaction toSave) throws SQLException{
         return  service.createTransaction(toSave);
     }
 

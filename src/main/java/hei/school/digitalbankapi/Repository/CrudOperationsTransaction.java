@@ -22,13 +22,13 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
     @Override
     public List<Transaction> findAll() throws SQLException {
         List<Transaction> allTransaction = new ArrayList<>();
-        String sql = "SELECT * FROM transaction";
+        String sql = "SELECT * FROM transactions";
 
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 allTransaction.add(new Transaction(
-                        resultSet.getInt("transaction_id"),
+                        resultSet.getInt("id_transaction"),
                         resultSet.getTimestamp("transaction_date"),
                         resultSet.getDouble("amount"),
                         resultSet.getString("transaction_type"),
@@ -43,7 +43,7 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
 
     @Override
     public Transaction save(Transaction toSave) throws SQLException {
-        String sql = "INSERT INTO account ( transaction_date, amount, transaction_type, label) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO transactions ( transaction_date, amount, transaction_type, label) VALUES (?,?,?,?)";
 
         try(PreparedStatement insertStatement = connection.prepareStatement(sql)){
             insertStatement.setTimestamp(1,toSave.getTransactionDate());
@@ -60,7 +60,7 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
 
     @Override
     public Transaction update(int id, Transaction toUpdate) throws SQLException {
-        String sql = "UPDATE account SET  transaction_date = ?, amount = ?,  transaction_type = ?, label = ? WHERE account_id = ?";
+        String sql = "UPDATE transactions SET  transaction_date = ?, amount = ?,  transaction_type = ?, label = ? WHERE id_transaction = ?";
         try (PreparedStatement updateSql = connection.prepareStatement(sql)){
             updateSql.setTimestamp(1,toUpdate.getTransactionDate());
             updateSql.setDouble(2,toUpdate.getAmount());
@@ -76,7 +76,7 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
 
     @Override
     public void delete(int id) throws SQLException {
-   String sql = "DELETE FROM transaction WHERE transaction_id = ?";
+   String sql = "DELETE FROM transaction WHERE id_transaction = ?";
    try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
        preparedStatement.setInt(1,id);
        preparedStatement.executeUpdate();

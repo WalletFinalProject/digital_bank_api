@@ -16,7 +16,7 @@ public class Account {
     private Date updateDate;
     private String clientName;
     private String clientFirstname;
-    private Date birth_date;
+    private Date birthDate;
     private Double netMonthlySalary;
     private int idTransaction;
 }
