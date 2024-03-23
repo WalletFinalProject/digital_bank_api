@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS transfer(
     id_transfer serial PRIMARY KEY,
     id_account integer REFERENCES accounts(id_account),
-    amount decimal(10, 2) NOT NULL,
+    amount double precision NOT NULL,
     transfer_reason varchar(200) NOT NULL,
     effective_date date NOT NULL,
     registration_date date NOT NULL,
