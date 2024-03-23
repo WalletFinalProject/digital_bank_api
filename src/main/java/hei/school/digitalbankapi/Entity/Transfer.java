@@ -18,4 +18,5 @@ public class Transfer {
     private Timestamp registrationDate;
     private String label;
     private String status;
+    private int idBalanceHistory;
 }

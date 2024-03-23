@@ -15,5 +15,5 @@ public class Transaction {
     private Timestamp transactionDate;
     private Double amount;
     private String transactionType;
-    private int accountId;
+    private String label;
 }

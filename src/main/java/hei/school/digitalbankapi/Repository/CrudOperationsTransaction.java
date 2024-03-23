@@ -32,7 +32,7 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
                         resultSet.getTimestamp("transaction_date"),
                         resultSet.getDouble("amount"),
                         resultSet.getString("transaction_type"),
-                        resultSet.getInt("account_id")
+                        resultSet.getString("label")
                 ));
             }
         }
@@ -43,13 +43,13 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
 
     @Override
     public Transaction save(Transaction toSave) throws SQLException {
-        String sql = "INSERT INTO account ( transaction_date, amount, transaction_type, account_id) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO account ( transaction_date, amount, transaction_type, label) VALUES (?,?,?,?)";
 
         try(PreparedStatement insertStatement = connection.prepareStatement(sql)){
             insertStatement.setTimestamp(1,toSave.getTransactionDate());
             insertStatement.setDouble(2,toSave.getAmount());
             insertStatement.setString(3,toSave.getTransactionType());
-            insertStatement.setInt(4,toSave.getAccountId());
+            insertStatement.setString(4,toSave.getLabel());
 
             insertStatement.executeUpdate();
 
@@ -59,18 +59,19 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
     }
 
     @Override
-    public void update(int id, Transaction toUpdate) throws SQLException {
-        String sql = "UPDATE account SET  transaction_date = ?, amount = ?,  transaction_type = ?, account_id = ? WHERE account_id = ?";
+    public Transaction update(int id, Transaction toUpdate) throws SQLException {
+        String sql = "UPDATE account SET  transaction_date = ?, amount = ?,  transaction_type = ?, label = ? WHERE account_id = ?";
         try (PreparedStatement updateSql = connection.prepareStatement(sql)){
             updateSql.setTimestamp(1,toUpdate.getTransactionDate());
             updateSql.setDouble(2,toUpdate.getAmount());
             updateSql.setString(3,toUpdate.getTransactionType());
-            updateSql.setInt(4,toUpdate.getAccountId());
+            updateSql.setString(4,toUpdate.getLabel());
             updateSql.setInt(5,id);
 
 
             updateSql.executeUpdate();
         }
+        return toUpdate;
     }
 
     @Override

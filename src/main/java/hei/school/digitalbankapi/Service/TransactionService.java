@@ -25,8 +25,8 @@ public class TransactionService {
         return repository.save(toSave);
     }
 
-    public void updateTransaction(int id, Transaction toUpdate) throws  SQLException{
-        repository.update(id,toUpdate);
+    public Transaction updateTransaction(int id, Transaction toUpdate) throws  SQLException{
+        return  repository.update(id,toUpdate);
     }
 
     public void deleteTransaction(int id) throws  SQLException{

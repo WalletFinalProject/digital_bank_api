@@ -35,7 +35,8 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
                         resultSet.getTimestamp("effective_date"),
                         resultSet.getTimestamp("registration_date"),
                         resultSet.getString("label"),
-                        resultSet.getString("status")
+                        resultSet.getString("status"),
+                        resultSet.getInt("id_balance_history")
                 ));
             }
         }
@@ -46,7 +47,7 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
 
     @Override
     public Transfer save(Transfer toSave) throws SQLException {
-        String sql = "INSERT INTO transfer (account_id_recipient,amount ,transfer_reason,effective_date, registration_date, label,status) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO transfer (account_id_recipient,amount ,transfer_reason,effective_date, registration_date, label,status,id_balance_history) VALUES (?,?,?,?,?,?,?,?)";
         try(PreparedStatement insertSql = connection.prepareStatement(sql)){
             insertSql.setInt(1,toSave.getAccountIdRecipient());
             insertSql.setDouble(2,toSave.getAmount());
@@ -55,6 +56,7 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
             insertSql.setTimestamp(5,toSave.getRegistrationDate());
             insertSql.setString(6,toSave.getLabel());
             insertSql.setString(7,toSave.getStatus());
+            insertSql.setInt(8,toSave.getIdBalanceHistory());
 
             insertSql.executeUpdate();
         }
@@ -62,8 +64,8 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
     }
 
     @Override
-    public void update(int id, Transfer toUpdate) throws SQLException {
-      String sql = "UPDATE transfer SET  account_id_recipient = ?,   amount = ?,  transfer_reason = ?, effective_date = ?, registration_date = ?, label = ?  status  = ? WHERE transfer_id = ?";
+    public Transfer update(int id, Transfer toUpdate) throws SQLException {
+      String sql = "UPDATE transfer SET  account_id_recipient = ?,   amount = ?,  transfer_reason = ?, effective_date = ?, registration_date = ?, label = ?  status  = ?, id_balance_history = ? WHERE transfer_id = ?";
 
       try(PreparedStatement updateSql = connection.prepareStatement(sql)){
           updateSql.setInt(1,toUpdate.getAccountIdRecipient());
@@ -73,10 +75,12 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
           updateSql.setTimestamp(5,toUpdate.getRegistrationDate());
           updateSql.setString(6,toUpdate.getLabel());
           updateSql.setString(7,toUpdate.getStatus());
-          updateSql.setInt(8,id);
+          updateSql.setInt(8,toUpdate.getIdBalanceHistory());
+          updateSql.setInt(9,id);
 
           updateSql.executeUpdate();
       }
+      return toUpdate;
     }
 
     @Override

@@ -24,8 +24,8 @@ public class TransferService {
         return repository.save(toSave);
     }
 
-    public void updateAccount(int id, Transfer toUpdate) throws SQLException{
-         repository.update(id,toUpdate);
+    public Transfer updateAccount(int id, Transfer toUpdate) throws SQLException{
+         return repository.update(id,toUpdate);
     }
 
     public void deleteAccount(int id) throws  SQLException{
