@@ -28,7 +28,7 @@ public class TransactionController {
     }
 
     @PutMapping("/transaction/{id}")
-    public void updateTransaction(@PathVariable("id") int id, Transaction toUpdate) throws SQLException{
+    public void updateTransaction(@PathVariable("id") int id, @RequestBody Transaction toUpdate) throws SQLException{
         service.updateTransaction(id,toUpdate);
     }
 

@@ -76,7 +76,7 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
 
     @Override
     public void delete(int id) throws SQLException {
-   String sql = "DELETE FROM transaction WHERE id_transaction = ?";
+   String sql = "DELETE FROM transactions WHERE id_transaction = ?";
    try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
        preparedStatement.setInt(1,id);
        preparedStatement.executeUpdate();

@@ -28,7 +28,7 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 allAccount.add(new Account(
-                        resultSet.getInt("account_id"),
+                        resultSet.getInt("id_account"),
                         resultSet.getBoolean("authorize_credits"),
                         resultSet.getDate("creation_date"),
                         resultSet.getDate("update_date"),
@@ -68,7 +68,7 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
 
     @Override
     public Account update(int id, Account toUpdate) throws SQLException {
-        String sql = "UPDATE accounts SET  authorize_credits = ?,   creation_date = ?,  update_date = ?, client_name = ?, client_firstname = ?, birth_date, net_monthly_salary = ?,id_transaction = ?, = ? WHERE account_id = ?";
+        String sql = "UPDATE accounts SET  authorize_credits = ?,   creation_date = ?,  update_date = ?, client_name = ?, client_firstname = ?, birth_date, net_monthly_salary = ?,id_transaction = ?, = ? WHERE id_account = ?";
         try (PreparedStatement updateSql = connection.prepareStatement(sql)){
             updateSql.setBoolean(1,toUpdate.isAuthorizeCredits());
             updateSql.setDate(2,toUpdate.getCreationDate());
@@ -86,7 +86,7 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
     }
     @Override
     public void delete(int id) throws SQLException {
-       String sql = "DELETE FROM accounts WHERE account_id = ?";
+       String sql = "DELETE FROM accounts WHERE id_account = ?";
          try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
              preparedStatement.setInt(1,id);
              preparedStatement.executeUpdate();
