@@ -36,8 +36,9 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
                         resultSet.getString("client_firstname"),
                         resultSet.getDate("birth_date"),
                         resultSet.getDouble("net_monthly_salary"),
-                        resultSet.getInt("id_transaction")
-
+                        resultSet.getInt("id_transaction"),
+                        resultSet.getDouble("balance"),
+                        resultSet.getDouble("credit_amount")
                 ));
             }
         }

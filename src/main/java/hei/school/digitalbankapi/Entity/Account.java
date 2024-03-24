@@ -19,4 +19,6 @@ public class Account {
     private Date birthDate;
     private Double netMonthlySalary;
     private int idTransaction;
+    private Double balance;
+    private Double creditAmount;
 }
