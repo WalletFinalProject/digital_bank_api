@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS category(
-    id_category serial PRIMARY KEY,
+    id_category UUID PRIMARY KEY,
     category_name varchar(200) NOT NULL,
     description varchar(200),
-    id_transaction integer REFERENCES transactions(id_transaction)
+    id_transaction UUID REFERENCES transactions(id_transaction)
 );
