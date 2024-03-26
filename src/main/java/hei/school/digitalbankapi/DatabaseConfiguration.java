@@ -10,7 +10,7 @@ import java.sql.SQLException;
 @Component
 public class DatabaseConfiguration {
     @Bean
-    public Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
 
         return DriverManager.getConnection(
                 System.getenv("JDBC_DATABASE_URL"), System.getenv("JDBC_DATABASE_USERNAME"), System.getenv("JDBC_DATABASE_PASSWORD")

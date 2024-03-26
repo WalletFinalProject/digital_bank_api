@@ -3,6 +3,7 @@ package hei.school.digitalbankapi.Controller;
 
 import hei.school.digitalbankapi.Entity.Account;
 import hei.school.digitalbankapi.Service.AccountService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -21,16 +22,20 @@ public class AccountController {
         return service.getAllAccount();
     }
 
+
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/account")
     public Account createAccount(@RequestBody Account toSave) throws SQLException{
         return  service.createAccount(toSave);
     }
 
+     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/account/{id}")
     public void updateAccount(@PathVariable("id") int id, @RequestBody Account toUpdate) throws SQLException {
             service.updateAccount(id,toUpdate);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/account/{id}")
     public void deleteAccount(@PathVariable("id") int id) throws SQLException{
          service.deleteAccount(id);

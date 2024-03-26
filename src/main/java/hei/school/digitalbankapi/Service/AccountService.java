@@ -24,8 +24,8 @@ public class AccountService {
         return  repository.save(toSave);
     }
 
-    public void updateAccount(int id, Account toUpdate) throws SQLException{
-         repository.update(id,toUpdate);
+    public Account updateAccount(int id, Account toUpdate) throws SQLException{
+         return repository.update(id,toUpdate);
     }
 
     public void deleteAccount(int id) throws SQLException{

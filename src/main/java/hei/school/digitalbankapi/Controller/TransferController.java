@@ -21,12 +21,12 @@ public class TransferController {
     }
 
     @PostMapping("/transfer")
-    public Transfer createTransfer(Transfer toSave) throws SQLException{
+    public Transfer createTransfer(@RequestBody Transfer toSave) throws SQLException{
         return service.createTransfer(toSave);
     }
 
     @PutMapping("/tranfert/{id}")
-    public void updateTransfer(@PathVariable("id") int id, Transfer toUpdate) throws SQLException{
+    public void updateTransfer(@PathVariable("id") int id,@RequestBody Transfer toUpdate) throws SQLException{
         service.updateAccount(id,toUpdate);
     }
 

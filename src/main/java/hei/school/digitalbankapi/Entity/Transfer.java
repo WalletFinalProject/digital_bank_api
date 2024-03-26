@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class Transfer {
-    private int transferId;
+    private int idTransfert;
     private int accountIdRecipient;
     private Double amount;
     private String transferReason;
@@ -18,4 +18,5 @@ public class Transfer {
     private Timestamp registrationDate;
     private String label;
     private String status;
+    private int idBalanceHistory;
 }

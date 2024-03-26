@@ -23,12 +23,12 @@ public class TransactionController {
     }
 
     @PostMapping("/transaction")
-    public Transaction createTransaction(Transaction toSave) throws SQLException{
+    public Transaction createTransaction(@RequestBody Transaction toSave) throws SQLException{
         return  service.createTransaction(toSave);
     }
 
     @PutMapping("/transaction/{id}")
-    public void updateTransaction(@PathVariable("id") int id, Transaction toUpdate) throws SQLException{
+    public void updateTransaction(@PathVariable("id") int id, @RequestBody Transaction toUpdate) throws SQLException{
         service.updateTransaction(id,toUpdate);
     }
 
