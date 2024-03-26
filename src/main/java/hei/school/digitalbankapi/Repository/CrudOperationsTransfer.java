@@ -28,7 +28,7 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 allTransfer.add(new Transfer(
-                        resultSet.getInt("transfer_id"),
+                        resultSet.getInt("id_transfer"),
                         resultSet.getInt("account_id_recipient"),
                         resultSet.getDouble("amount"),
                         resultSet.getString("transfer_reason"),
@@ -65,7 +65,7 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
 
     @Override
     public Transfer update(int id, Transfer toUpdate) throws SQLException {
-      String sql = "UPDATE transfer SET  account_id_recipient = ?,   amount = ?,  transfer_reason = ?, effective_date = ?, registration_date = ?, label = ?  status  = ?, id_balance_history = ? WHERE transfer_id = ?";
+      String sql = "UPDATE transfer SET  account_id_recipient = ?,   amount = ?,  transfer_reason = ?, effective_date = ?, registration_date = ?, label = ?  status  = ?, id_balance_history = ? WHERE id_transfer = ?";
 
       try(PreparedStatement updateSql = connection.prepareStatement(sql)){
           updateSql.setInt(1,toUpdate.getAccountIdRecipient());
@@ -85,7 +85,7 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
 
     @Override
     public void delete(int id) throws SQLException {
-    String sql = "DELETE FROM transfer WHERE transfer_id = ?";
+    String sql = "DELETE FROM transfer WHERE id_transfer = ?";
 
     try (PreparedStatement deleteSql = connection.prepareStatement(sql)){
         deleteSql.setInt(1,id);

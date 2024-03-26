@@ -16,16 +16,16 @@ import java.sql.SQLException;
 public class WithdrawalController {
 
     @PostMapping("/make")
-    public String makeWithdrawal(@RequestParam int accountId,
+    public String makeWithdrawal(@RequestParam int idAccount,
                                  @RequestParam double amount) {
         try (Connection connection = DatabaseConfiguration.getConnection()) {
-            double balance = getBalance(connection, accountId);
-            boolean authorizeCredits = isCreditAuthorized(connection, accountId);
-            double balanceWithCredit = balance + (authorizeCredits ? getCreditAmount(connection, accountId) : 0.0);
+            double balance = getBalance(connection, idAccount);
+            boolean authorizeCredits = isCreditAuthorized(connection, idAccount);
+            double balanceWithCredit = balance + (authorizeCredits ? getCreditAmount(connection, idAccount) : 0.0);
 
             if (balanceWithCredit >= amount) {
                 double newBalance = balance - amount;
-                updateBalance(connection, accountId, newBalance);
+                updateBalance(connection, idAccount, newBalance);
                 return "Withdrawal successfully completed";
             } else {
                 return "Error: the balance does not cover the amount requested";

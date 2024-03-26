@@ -49,7 +49,7 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
 
     @Override
     public Account save(Account toSave) throws SQLException {
-        String sql = "INSERT INTO accounts (authorize_credits,creation_date,update_date,client_name, client_firstname,birth_date, net_monthly_salary,id_transaction) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO accounts (authorize_credits,creation_date,update_date,client_name, client_firstname,birth_date, net_monthly_salary,id_transaction,balance,credit_amount) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         try(PreparedStatement insertStatement = connection.prepareStatement(sql)){
             insertStatement.setBoolean(1,toSave.isAuthorizeCredits());
@@ -60,6 +60,8 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
             insertStatement.setDate(6,toSave.getBirthDate());
             insertStatement.setDouble(7,toSave.getNetMonthlySalary());
             insertStatement.setInt(8,toSave.getIdTransaction());
+            insertStatement.setDouble(9,toSave.getBalance());
+            insertStatement.setDouble(10,toSave.getCreditAmount());
             insertStatement.executeUpdate();
 
         }
@@ -69,7 +71,7 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
 
     @Override
     public Account update(int id, Account toUpdate) throws SQLException {
-        String sql = "UPDATE accounts SET  authorize_credits = ?,   creation_date = ?,  update_date = ?, client_name = ?, client_firstname = ?, birth_date, net_monthly_salary = ?,id_transaction = ?, = ? WHERE id_account = ?";
+        String sql = "UPDATE accounts SET  authorize_credits = ?,   creation_date = ?,  update_date = ?, client_name = ?, client_firstname = ?, birth_date, net_monthly_salary = ?,id_transaction = ?, balance = ?, credit_amount = ?, = ? WHERE id_account = ?";
         try (PreparedStatement updateSql = connection.prepareStatement(sql)){
             updateSql.setBoolean(1,toUpdate.isAuthorizeCredits());
             updateSql.setDate(2,toUpdate.getCreationDate());
@@ -79,7 +81,9 @@ public class CrudOperationsAccount implements CrudOperations<Account>{
             updateSql.setDate(6,toUpdate.getBirthDate());
             updateSql.setDouble(7,toUpdate.getNetMonthlySalary());
             updateSql.setInt(8,toUpdate.getIdTransaction());
-            updateSql.setInt(9,id);
+            updateSql.setDouble(9,toUpdate.getBalance());
+            updateSql.setDouble(10,toUpdate.getCreditAmount());
+            updateSql.setInt(11,id);
 
             updateSql.executeUpdate();
         }
