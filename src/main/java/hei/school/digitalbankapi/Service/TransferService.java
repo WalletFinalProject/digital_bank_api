@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TransferService {
@@ -24,11 +25,11 @@ public class TransferService {
         return repository.save(toSave);
     }
 
-    public Transfer updateAccount(int id, Transfer toUpdate) throws SQLException{
+    public Transfer updateAccount(UUID id, Transfer toUpdate) throws SQLException{
          return repository.update(id,toUpdate);
     }
 
-    public void deleteAccount(int id) throws  SQLException{
+    public void deleteAccount(UUID id) throws  SQLException{
         repository.delete(id);
     }
 }

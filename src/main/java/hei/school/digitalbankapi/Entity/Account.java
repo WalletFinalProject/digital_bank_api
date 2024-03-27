@@ -2,15 +2,18 @@ package hei.school.digitalbankapi.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
+import java.util.UUID;
 
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Account {
-    private int idAccount;
+    private UUID idAccount;
     private boolean authorizeCredits;
     private Date creationDate;
     private Date updateDate;
@@ -18,7 +21,7 @@ public class Account {
     private String clientFirstname;
     private Date birthDate;
     private Double netMonthlySalary;
-    private int idTransaction;
+    private UUID idTransaction;
     private Double balance;
     private Double creditAmount;
 }

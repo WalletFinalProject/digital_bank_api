@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class CrudOperationsTransaction implements CrudOperations<Transaction>{
@@ -28,7 +29,7 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 allTransaction.add(new Transaction(
-                        resultSet.getInt("id_transaction"),
+                        resultSet.getObject("id_transaction", UUID.class),
                         resultSet.getTimestamp("transaction_date"),
                         resultSet.getDouble("amount"),
                         resultSet.getString("transaction_type"),
@@ -59,14 +60,14 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
     }
 
     @Override
-    public Transaction update(int id, Transaction toUpdate) throws SQLException {
+    public Transaction update(UUID id, Transaction toUpdate) throws SQLException {
         String sql = "UPDATE transactions SET  transaction_date = ?, amount = ?,  transaction_type = ?, label = ? WHERE id_transaction = ?";
         try (PreparedStatement updateSql = connection.prepareStatement(sql)){
             updateSql.setTimestamp(1,toUpdate.getTransactionDate());
             updateSql.setDouble(2,toUpdate.getAmount());
             updateSql.setString(3,toUpdate.getTransactionType());
             updateSql.setString(4,toUpdate.getLabel());
-            updateSql.setInt(5,id);
+            updateSql.setObject(5,id);
 
 
             updateSql.executeUpdate();
@@ -75,10 +76,10 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(UUID id) throws SQLException {
    String sql = "DELETE FROM transactions WHERE id_transaction = ?";
    try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-       preparedStatement.setInt(1,id);
+       preparedStatement.setObject(1,id);
        preparedStatement.executeUpdate();
    }
     }

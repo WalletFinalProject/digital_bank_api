@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AccountService {
@@ -24,11 +25,11 @@ public class AccountService {
         return  repository.save(toSave);
     }
 
-    public Account updateAccount(int id, Account toUpdate) throws SQLException{
+    public Account updateAccount(UUID id, Account toUpdate) throws SQLException{
          return repository.update(id,toUpdate);
     }
 
-    public void deleteAccount(int id) throws SQLException{
+    public void deleteAccount(UUID id) throws SQLException{
          repository.delete(id);
     }
 }

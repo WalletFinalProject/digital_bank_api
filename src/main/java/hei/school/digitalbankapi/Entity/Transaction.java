@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class Transaction {
-    private int idTransaction;
+    private UUID idTransaction;
     private Timestamp transactionDate;
     private Double amount;
     private String transactionType;
