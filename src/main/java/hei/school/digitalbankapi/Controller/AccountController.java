@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class AccountController {
@@ -31,13 +32,13 @@ public class AccountController {
 
      @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/account/{id}")
-    public void updateAccount(@PathVariable("id") int id, @RequestBody Account toUpdate) throws SQLException {
+    public void updateAccount(@PathVariable("id") UUID id, @RequestBody Account toUpdate) throws SQLException {
             service.updateAccount(id,toUpdate);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/account/{id}")
-    public void deleteAccount(@PathVariable("id") int id) throws SQLException{
+    public void deleteAccount(@PathVariable("id") UUID id) throws SQLException{
          service.deleteAccount(id);
     }
 }

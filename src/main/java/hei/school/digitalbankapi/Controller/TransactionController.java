@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class TransactionController {
@@ -28,12 +29,12 @@ public class TransactionController {
     }
 
     @PutMapping("/transaction/{id}")
-    public void updateTransaction(@PathVariable("id") int id, @RequestBody Transaction toUpdate) throws SQLException{
+    public void updateTransaction(@PathVariable("id") UUID id, @RequestBody Transaction toUpdate) throws SQLException{
         service.updateTransaction(id,toUpdate);
     }
 
     @DeleteMapping("/transaction/{id}")
-    public void deleteTransaction(@PathVariable("id") int id) throws SQLException{
+    public void deleteTransaction(@PathVariable("id") UUID id) throws SQLException{
         service.deleteTransaction(id);
     }
 

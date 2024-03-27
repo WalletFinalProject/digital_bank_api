@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TransactionService {
@@ -25,11 +26,11 @@ public class TransactionService {
         return repository.save(toSave);
     }
 
-    public Transaction updateTransaction(int id, Transaction toUpdate) throws  SQLException{
+    public Transaction updateTransaction(UUID id, Transaction toUpdate) throws  SQLException{
         return  repository.update(id,toUpdate);
     }
 
-    public void deleteTransaction(int id) throws  SQLException{
+    public void deleteTransaction(UUID id) throws  SQLException{
         repository.delete(id);
     }
 }
