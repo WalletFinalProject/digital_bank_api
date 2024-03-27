@@ -10,13 +10,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/withdrawals")
 public class WithdrawalController {
 
     @PostMapping("/make")
-    public String makeWithdrawal(@RequestParam int idAccount,
+    public String makeWithdrawal(@RequestParam UUID idAccount,
                                  @RequestParam double amount) {
         try (Connection connection = DatabaseConfiguration.getConnection()) {
             double balance = getBalance(connection, idAccount);
@@ -36,9 +37,9 @@ public class WithdrawalController {
         }
     }
 
-    private double getBalance(Connection connection, int accountId) throws SQLException {
+    private double getBalance(Connection connection, UUID accountId) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT balance FROM accounts WHERE id_account = ?");
-        statement.setInt(1, accountId);
+        statement.setObject(1, accountId);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             return resultSet.getDouble("balance");
@@ -46,9 +47,9 @@ public class WithdrawalController {
         throw new IllegalArgumentException("Account not found");
     }
 
-    private boolean isCreditAuthorized(Connection connection, int accountId) throws SQLException {
+    private boolean isCreditAuthorized(Connection connection, UUID accountId) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT authorize_credits FROM accounts WHERE id_account = ?");
-        statement.setInt(1, accountId);
+        statement.setObject(1, accountId);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             return resultSet.getBoolean("authorize_credits");
@@ -56,9 +57,9 @@ public class WithdrawalController {
         throw new IllegalArgumentException("Account not found");
     }
 
-    private double getCreditAmount(Connection connection, int accountId) throws SQLException {
+    private double getCreditAmount(Connection connection, UUID accountId) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT credit_amount FROM accounts WHERE id_account = ?");
-        statement.setInt(1, accountId);
+        statement.setObject(1, accountId);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             return resultSet.getDouble("credit_amount");
@@ -66,10 +67,10 @@ public class WithdrawalController {
         throw new IllegalArgumentException("Account not found");
     }
 
-    private void updateBalance(Connection connection, int accountId, double newBalance) throws SQLException {
+    private void updateBalance(Connection connection, UUID accountId, double newBalance) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("UPDATE accounts SET balance = ? WHERE id_account = ?");
         statement.setDouble(1, newBalance);
-        statement.setInt(2, accountId);
+        statement.setObject(2, accountId);
         statement.executeUpdate();
     }
 }
