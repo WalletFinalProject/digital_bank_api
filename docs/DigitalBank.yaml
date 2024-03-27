@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Digital Bank
   description: Digital Bank
-  version: 1.2.1
+  version: 1.2.2
 servers:
   - url: 'https://digital_bank.com'
 paths:
@@ -760,14 +760,14 @@ components:
         motif:
           type: string
         credit:
-          type: string
-          format: bigDecimal
+          type: number
+          format: double
         debit:
-          type: string
-          format: bigDecimal
+          type: number
+          format: double
         balance:
-          type: string
-          format: bigDecimal
+          type: number
+          format: double
     CrUpdateAccount:
       type: object
       properties:
@@ -781,8 +781,8 @@ components:
           type: string
           format: date
         netMonthlySalary:
-          type: string
-          format: bigDecimal
+          type: number
+          format: double
         authorize_credits:
           type: boolean
         creation_date:
@@ -791,6 +791,12 @@ components:
         update_date:
           type: string
           format: date
+        balance:
+          type: number
+          format: double
+        creditAmount:
+          type: number
+          format: double
     CrUpdateBalanceHistory:
       type: object
       properties:
@@ -810,8 +816,8 @@ components:
         id:
           type: integer
         amount:
-          type: string
-          format: bigDecimal
+          type: number
+          format: double
         transferReason:
           type: string
         effectiveDate:
