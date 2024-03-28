@@ -2,6 +2,7 @@ package hei.school.digitalbankapi.Repository;
 
 import hei.school.digitalbankapi.Entity.Account;
 import hei.school.digitalbankapi.Entity.BalanceHistory;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+@Repository
 public class CrudOperationsBalance implements CrudOperations<BalanceHistory>{
     private Connection connection;
 
