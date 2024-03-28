@@ -10,34 +10,34 @@ import java.util.UUID;
 
 @RestController
 public class BalanceController {
-    private BalanceService service;
+    private BalanceService balanceService;
 
-    private BalanceController(BalanceService service) {
-        this.service = service;
+    public BalanceController(BalanceService balanceService) {
+        this.balanceService = balanceService;
     }
 
-    public static BalanceController createBalanceController(BalanceService service) {
-        return new BalanceController(service);
+    public static BalanceController createBalanceController(BalanceService balanceService) {
+        return new BalanceController(balanceService);
     }
 
     @GetMapping("/balance-history")
     public List<BalanceHistory> getAllBalanceHistory() throws SQLException {
-        return service.getBalanceHistory();
+        return balanceService.getBalanceHistory();
     }
 
     @PostMapping("/balance-history")
     public BalanceHistory createBalanceHistory(@RequestBody BalanceHistory toSave) throws SQLException{
-        return  service.createBalanceHistory(toSave);
+        return  balanceService.createBalanceHistory(toSave);
     }
 
     @PutMapping("/balance-history/{id}")
     public void updateBalanceHistory(@PathVariable("id") UUID id, @RequestBody BalanceHistory toUpdate) throws SQLException{
-        service.updateBalanceHistory(id,toUpdate);
+        balanceService.updateBalanceHistory(id,toUpdate);
     }
 
     @DeleteMapping("/balance-history/{id}")
     public void deleteBalanceHistory(@PathVariable("id") UUID id) throws SQLException{
-        service.deleteBalanceHistory(id);
+        balanceService.deleteBalanceHistory(id);
     }
 }
 
