@@ -38,7 +38,7 @@ public class AccountService {
         if (account.getBalance() < 0) {
             throw new IllegalArgumentException("Balance cannot be negative");
         }
-        if (account.getBalance() > account.getNetMonthlySalary() / 3) {
+        if (account.getBalance() > (account.getNetMonthlySalary() / 3)) {
             throw new IllegalArgumentException("Balance cannot exceed one-third of the monthly salary");
         }
     }

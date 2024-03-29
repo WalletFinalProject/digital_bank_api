@@ -22,12 +22,17 @@ public class WithdrawalController {
         try (Connection connection = DatabaseConfiguration.getConnection()) {
             double balance = getBalance(connection, idAccount);
             boolean authorizeCredits = isCreditAuthorized(connection, idAccount);
+            double netMonthlySalary = getNetMonthlySalary(connection, idAccount);
             double balanceWithCredit = balance + (authorizeCredits ? getCreditAmount(connection, idAccount) : 0.0);
+
+            if (amount > (netMonthlySalary / 3)) {
+                return "Error: The withdrawal amount cannot exceed one-third of the monthly salary";
+            }
 
             if (balanceWithCredit >= amount) {
                 double newBalance = balance - amount;
                 updateBalance(connection, idAccount, newBalance);
-                return "Withdrawal successfully completed. " + newBalance;
+                return "Withdrawal successfully completed. New balance: " + newBalance;
             } else {
                 return "Error: the balance does not cover the amount requested";
             }
@@ -63,6 +68,16 @@ public class WithdrawalController {
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             return resultSet.getDouble("credit_amount");
+        }
+        throw new IllegalArgumentException("Account not found");
+    }
+
+    private double getNetMonthlySalary(Connection connection, UUID accountId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT net_monthly_salary FROM accounts WHERE id_account = ?");
+        statement.setObject(1, accountId);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getDouble("net_monthly_salary");
         }
         throw new IllegalArgumentException("Account not found");
     }
