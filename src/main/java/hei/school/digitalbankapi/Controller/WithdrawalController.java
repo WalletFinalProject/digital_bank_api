@@ -27,7 +27,7 @@ public class WithdrawalController {
             if (balanceWithCredit >= amount) {
                 double newBalance = balance - amount;
                 updateBalance(connection, idAccount, newBalance);
-                return "Withdrawal successfully completed";
+                return "Withdrawal successfully completed. " + newBalance;
             } else {
                 return "Error: the balance does not cover the amount requested";
             }
