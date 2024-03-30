@@ -20,8 +20,8 @@ public class StatementService {
                         rs.getTimestamp("transaction_date"),
                         rs.getDouble("amount"),
                         rs.getString("transaction_type"),
-                        rs.getString("label")
-                )
+                        rs.getString("label"),
+                        rs.getObject("id_account", UUID.class)                )
         );
     }
 }
