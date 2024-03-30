@@ -36,7 +36,6 @@ public class CrudOperationsAccount implements CrudOperations<Account> {
                 account.setClientFirstname(resultSet.getString("client_firstname"));
                 account.setBirthDate(resultSet.getDate("birth_date"));
                 account.setNetMonthlySalary(resultSet.getDouble("net_monthly_salary"));
-                account.setIdTransaction(resultSet.getObject("id_transaction", UUID.class));
                 account.setBalance(resultSet.getDouble("balance"));
                 account.setCreditAmount(resultSet.getDouble("credit_amount"));
 
@@ -59,9 +58,8 @@ public class CrudOperationsAccount implements CrudOperations<Account> {
             insertStatement.setString(6, toSave.getClientFirstname());
             insertStatement.setDate(7, toSave.getBirthDate());
             insertStatement.setDouble(8, toSave.getNetMonthlySalary());
-            insertStatement.setObject(9, toSave.getIdTransaction());
-            insertStatement.setDouble(10, toSave.getBalance());
-            insertStatement.setDouble(11, toSave.getCreditAmount());
+            insertStatement.setDouble(9, toSave.getBalance());
+            insertStatement.setDouble(10, toSave.getCreditAmount());
             insertStatement.executeUpdate();
         }
 
@@ -80,10 +78,9 @@ public class CrudOperationsAccount implements CrudOperations<Account> {
             updateSql.setString(5, toUpdate.getClientFirstname());
             updateSql.setDate(6, toUpdate.getBirthDate());
             updateSql.setDouble(7, toUpdate.getNetMonthlySalary());
-            updateSql.setObject(8, toUpdate.getIdTransaction());
-            updateSql.setDouble(9, toUpdate.getBalance());
-            updateSql.setDouble(10, toUpdate.getCreditAmount());
-            updateSql.setObject(11, id);
+            updateSql.setDouble(8, toUpdate.getBalance());
+            updateSql.setDouble(9, toUpdate.getCreditAmount());
+            updateSql.setObject(10, id);
             updateSql.executeUpdate();
         }
 
