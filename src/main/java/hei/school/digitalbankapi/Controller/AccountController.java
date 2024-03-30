@@ -27,11 +27,8 @@ public class AccountController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/account")
     public Account createAccount(@RequestBody Account toSave) throws SQLException {
-        try {
             return service.createAccount(toSave);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

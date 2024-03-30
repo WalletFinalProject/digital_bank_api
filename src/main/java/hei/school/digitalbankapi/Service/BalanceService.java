@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
-<<<<<<< HEAD
 
-=======
->>>>>>> a31bbf9c8daadc8f2c61bf1a38e9279b8c725166
 @Service
 public class BalanceService {
     private CrudOperationsBalance repository;

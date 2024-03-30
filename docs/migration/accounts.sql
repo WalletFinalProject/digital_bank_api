@@ -11,3 +11,6 @@ CREATE TABLE IF NOT EXISTS accounts(
     balance double precision NOT NULL,
     credit_amount double precision NOT NULL
 );
+
+ALTER TABLE accounts
+    ADD COLUMN id_account UUID DEFAULT gen_random_uuid() PRIMARY KEY;
