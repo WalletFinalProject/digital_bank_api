@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
+@RestController
 
 public class AccountStatementController {
     private AccountStatementService accountStatementService;

@@ -1,7 +1,7 @@
 package hei.school.digitalbankapi.Repository;
 
-import hei.school.digitalbankapi.Entity.Account;
 import hei.school.digitalbankapi.Entity.AccountStatement;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,10 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+@Repository
 public class CrudOperationsAccountStatement implements CrudOperations<AccountStatement>{
 
     private Connection connection;
+
+    public CrudOperationsAccountStatement(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public List<AccountStatement> findAll() throws SQLException {
         List<AccountStatement> allAccountStatements = new ArrayList<>();
@@ -84,4 +89,4 @@ public class CrudOperationsAccountStatement implements CrudOperations<AccountSta
         }
     }
     }
-}
+
