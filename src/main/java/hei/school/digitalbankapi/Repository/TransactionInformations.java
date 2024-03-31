@@ -41,7 +41,7 @@ public class TransactionInformations {
                 "FROM " +
                 "    transactions t " +
                 "JOIN " +
-                "    accounts a ON t.id_transaction = t.id_transaction " +
+                "    accounts a ON t.id_transaction = a.id_transaction " +
                 "WHERE " +
                 "    t.id_transaction = ?";
 
