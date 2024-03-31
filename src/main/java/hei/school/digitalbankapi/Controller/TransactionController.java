@@ -23,6 +23,11 @@ public class TransactionController {
         return service.getAllTransaction();
     }
 
+    @GetMapping("/transaction/{id}")
+    public List<Transaction> getById(@PathVariable("id") UUID id) throws SQLException{
+        return service.getById(id);
+    }
+
     @PostMapping("/transaction")
     public Transaction createTransaction(@RequestBody Transaction toSave) throws SQLException{
         return  service.createTransaction(toSave);
