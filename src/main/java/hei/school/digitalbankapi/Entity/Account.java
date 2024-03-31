@@ -21,7 +21,6 @@ public class Account {
     private String clientFirstname;
     private Date birthDate;
     private Double netMonthlySalary;
-    private UUID idTransaction;
     private Double balance;
     private Double creditAmount;
 }

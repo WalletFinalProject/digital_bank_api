@@ -1,13 +1,14 @@
 package hei.school.digitalbankapi.Service;
 
-import hei.school.digitalbankapi.Entity.Account;
 import hei.school.digitalbankapi.Entity.BalanceHistory;
 import hei.school.digitalbankapi.Repository.CrudOperationsBalance;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class BalanceService {
     private CrudOperationsBalance repository;
 
