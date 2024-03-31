@@ -2,15 +2,16 @@ package hei.school.digitalbankapi.Service;
 
 import hei.school.digitalbankapi.Entity.AccountStatement;
 import hei.school.digitalbankapi.Repository.CrudOperationsAccountStatement;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 @Service
 public class AccountStatementService {
     private CrudOperationsAccountStatement crudOperationsAccountStatement;
-
     public AccountStatementService(CrudOperationsAccountStatement crudOperationsAccountStatement) {
         this.crudOperationsAccountStatement = crudOperationsAccountStatement;
     }
