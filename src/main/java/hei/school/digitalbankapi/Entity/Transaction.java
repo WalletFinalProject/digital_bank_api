@@ -16,4 +16,5 @@ public class Transaction {
     private Double amount;
     private String transactionType;
     private String label;
+    private UUID idAccount;
 }
