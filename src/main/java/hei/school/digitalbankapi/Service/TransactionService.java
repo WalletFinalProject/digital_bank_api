@@ -3,6 +3,7 @@ package hei.school.digitalbankapi.Service;
 
 import hei.school.digitalbankapi.Entity.Transaction;
 import hei.school.digitalbankapi.Repository.CrudOperationsTransaction;
+import hei.school.digitalbankapi.Repository.TransactionInformations;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -13,15 +14,20 @@ import java.util.UUID;
 public class TransactionService {
 
     private CrudOperationsTransaction repository;
+    private TransactionInformations informations;
 
-    public TransactionService(CrudOperationsTransaction repository) {
+    public TransactionService(CrudOperationsTransaction repository, TransactionInformations informations) {
         this.repository = repository;
+        this.informations = informations;
     }
 
     public List<Transaction> getAllTransaction() throws SQLException {
         return  repository.findAll();
     }
 
+    public List<Transaction> getById(UUID id) throws SQLException{
+        return  informations.findByid(id);
+    }
     public Transaction createTransaction(Transaction toSave) throws  SQLException{
         return repository.save(toSave);
     }

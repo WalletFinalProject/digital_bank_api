@@ -47,7 +47,7 @@ public class CrudOperationsAccount implements CrudOperations<Account> {
     }
     @Override
     public Account save(Account toSave) throws SQLException {
-        String sql = "INSERT INTO accounts (id_account, authorize_credits, creation_date, update_date, client_name, client_firstname, birth_date, net_monthly_salary, id_transaction, balance, credit_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO accounts (id_account, authorize_credits, creation_date, update_date, client_name, client_firstname, birth_date, net_monthly_salary,balance, credit_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement insertStatement = connection.prepareStatement(sql)) {
             insertStatement.setObject(1, toSave.getIdAccount());

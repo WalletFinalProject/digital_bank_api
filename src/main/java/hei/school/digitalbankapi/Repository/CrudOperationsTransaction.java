@@ -20,6 +20,9 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
         this.connection = connection;
     }
 
+
+
+
     @Override
     public List<Transaction> findAll() throws SQLException {
         List<Transaction> allTransaction = new ArrayList<>();
@@ -39,20 +42,20 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
             }
         }
 
-
         return allTransaction;
     }
 
     @Override
     public Transaction save(Transaction toSave) throws SQLException {
-        String sql = "INSERT INTO transactions ( transaction_date, amount, transaction_type, label) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO transactions (  id_transaction, transaction_date, amount, transaction_type, label, id_account) VALUES (?,?,?,?,?,?)";
 
         try(PreparedStatement insertStatement = connection.prepareStatement(sql)){
-            insertStatement.setTimestamp(1,toSave.getTransactionDate());
-            insertStatement.setDouble(2,toSave.getAmount());
-            insertStatement.setString(3,toSave.getTransactionType());
-            insertStatement.setString(4,toSave.getLabel());
-            insertStatement.setObject(5, toSave.getIdAccount());
+            insertStatement.setObject(1,toSave.getIdTransaction());
+            insertStatement.setTimestamp(2,toSave.getTransactionDate());
+            insertStatement.setDouble(3,toSave.getAmount());
+            insertStatement.setString(4,toSave.getTransactionType());
+            insertStatement.setString(5,toSave.getLabel());
+            insertStatement.setObject(6, toSave.getIdAccount());
 
             insertStatement.executeUpdate();
 
