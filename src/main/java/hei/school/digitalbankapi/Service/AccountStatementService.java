@@ -1,5 +1,6 @@
 package hei.school.digitalbankapi.Service;
 
+import hei.school.digitalbankapi.Entity.Account;
 import hei.school.digitalbankapi.Entity.AccountStatement;
 import hei.school.digitalbankapi.Repository.CrudOperationsAccountStatement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,9 @@ public class AccountStatementService {
             }
             return accountStatements;
         }
+    }
+
+    public List<AccountStatement> getAccountStatementById(UUID id) throws SQLException {
+        return crudOperationsAccountStatement.findById(id);
     }
 }

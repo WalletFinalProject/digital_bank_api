@@ -1,7 +1,9 @@
 package hei.school.digitalbankapi.Controller;
 
+import hei.school.digitalbankapi.Entity.AccountStatement;
 import hei.school.digitalbankapi.Entity.BalanceHistory;
 import hei.school.digitalbankapi.Service.BalanceService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -23,6 +25,15 @@ public class BalanceController {
     @GetMapping("/balance-history")
     public List<BalanceHistory> getAllBalanceHistory() throws SQLException {
         return balanceService.getBalanceHistory();
+    }
+
+    @GetMapping("/balance-history/{id}")
+    public ResponseEntity<List<BalanceHistory>> getBalanceHistoryById(@PathVariable("id") UUID id) throws SQLException {
+        List<BalanceHistory> balanceHistories = balanceService.getBalanceHistoryById(id);
+        if (balanceHistories == null || balanceHistories.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(balanceHistories);
     }
 
     @PostMapping("/balance-history")

@@ -1,5 +1,6 @@
 package hei.school.digitalbankapi.Repository;
 
+import hei.school.digitalbankapi.Entity.AccountStatement;
 import hei.school.digitalbankapi.Entity.Transfer;
 import org.springframework.stereotype.Repository;
 
@@ -44,6 +45,32 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
 
 
         return allTransfer;
+    }
+
+    @Override
+    public List<Transfer> findById(UUID id) throws SQLException {
+        List<Transfer> transferById = new ArrayList<>();
+        String sql = "SELECT * FROM transfer WHERE id_transfer = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setObject(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Transfer transfer = new Transfer();
+                    transfer.setIdTransfert(resultSet.getObject("id_transfer", UUID.class));
+                    transfer.setAccountIdRecipient(resultSet.getObject("id_account", UUID.class));
+                    transfer.setAmount(resultSet.getDouble("amount"));
+                    transfer.setTransferReason(resultSet.getString("transfer_reason"));
+                    transfer.setEffectiveDate(resultSet.getTimestamp("effective_date"));
+                    transfer.setRegistrationDate(resultSet.getTimestamp("registration_date"));
+                    transfer.setLabel(resultSet.getString("label"));
+                    transfer.setStatus(resultSet.getString("status"));
+                    transfer.setIdBalanceHistory(resultSet.getObject("id_balance_history", UUID.class));
+                    transferById.add(transfer);
+                }
+            }
+        }
+        return transferById;
     }
 
     @Override

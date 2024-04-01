@@ -42,4 +42,7 @@ public class AccountService {
             throw new IllegalArgumentException("Balance cannot exceed one-third of the monthly salary");
         }
     }
+    public List<Account> getAccountById(UUID id) throws SQLException {
+        return repository.findById(id);
+    }
 }

@@ -1,8 +1,7 @@
 package hei.school.digitalbankapi.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -10,6 +9,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class Transaction {
     private UUID idTransaction;
     private Timestamp transactionDate;
