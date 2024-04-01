@@ -1,5 +1,6 @@
 package hei.school.digitalbankapi.Service;
 
+import hei.school.digitalbankapi.Entity.Account;
 import hei.school.digitalbankapi.Entity.BalanceHistory;
 import hei.school.digitalbankapi.Repository.CrudOperationsBalance;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,9 @@ public class BalanceService {
 
     public void deleteBalanceHistory(UUID id) throws SQLException{
         repository.delete(id);
+    }
+
+    public List<BalanceHistory> getBalanceHistoryById(UUID id) throws SQLException {
+        return repository.findById(id);
     }
 }

@@ -1,8 +1,7 @@
 package hei.school.digitalbankapi.Controller;
 
-
+import hei.school.digitalbankapi.Entity.BalanceHistory;
 import hei.school.digitalbankapi.Entity.Transaction;
-import hei.school.digitalbankapi.Repository.CrudOperationsTransaction;
 import hei.school.digitalbankapi.Service.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,22 +26,26 @@ public class TransactionController {
     }
 
     @GetMapping("/transaction/{id}")
-    public List<Transaction> getById(@PathVariable("id") UUID id) throws SQLException{
-        return service.getById(id);
+    public ResponseEntity<List<Transaction>> getTransactionById(@PathVariable("id") UUID id) throws SQLException {
+        List<Transaction> transactions = service.getTransactionById(id);
+        if (transactions == null || transactions.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(transactions);
     }
 
     @PostMapping("/transaction")
-    public Transaction createTransaction(@RequestBody Transaction toSave) throws SQLException{
-        return  service.createTransaction(toSave);
+    public Transaction createTransaction(@RequestBody Transaction toSave) throws SQLException {
+        return service.createTransaction(toSave);
     }
 
     @PutMapping("/transaction/{id}")
-    public void updateTransaction(@PathVariable("id") UUID id, @RequestBody Transaction toUpdate) throws SQLException{
-        service.updateTransaction(id,toUpdate);
+    public void updateTransaction(@PathVariable("id") UUID id, @RequestBody Transaction toUpdate) throws SQLException {
+        service.updateTransaction(id, toUpdate);
     }
 
     @DeleteMapping("/transaction/{id}")
-    public void deleteTransaction(@PathVariable("id") UUID id) throws SQLException{
+    public void deleteTransaction(@PathVariable("id") UUID id) throws SQLException {
         service.deleteTransaction(id);
     }
 
@@ -71,4 +74,5 @@ public class TransactionController {
         List<Map<String, Object>> data = service.getIncomeAndExpenses(idAccount, startDate, endDate, groupBy);
         return ResponseEntity.ok(data);
     }
+
 }

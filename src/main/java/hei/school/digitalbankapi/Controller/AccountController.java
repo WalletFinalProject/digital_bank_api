@@ -24,6 +24,19 @@ public class AccountController {
         return service.getAllAccount();
     }
 
+    @GetMapping("/accounts/{id}")
+    public ResponseEntity<List<Account>> getAccountsById(@PathVariable("id") UUID id) throws SQLException {
+        List<Account> accounts = service.getAccountById(id);
+        if (accounts == null || accounts.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(accounts);
+    }
+
+
+
+
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/account")
     public Account createAccount(@RequestBody Account toSave) throws SQLException {

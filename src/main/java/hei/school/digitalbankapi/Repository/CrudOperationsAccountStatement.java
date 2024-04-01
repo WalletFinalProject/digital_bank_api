@@ -44,6 +44,32 @@ public class CrudOperationsAccountStatement implements CrudOperations<AccountSta
     }
 
     @Override
+    public List<AccountStatement> findById(UUID id) throws SQLException {
+        List<AccountStatement> accountStatementById = new ArrayList<>();
+        String sql = "SELECT * FROM account_statement WHERE id_account_statement = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setObject(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    AccountStatement accountStatement = new AccountStatement();
+                    accountStatement.setIdAccount(resultSet.getObject("id_account_statement", UUID.class));
+                    accountStatement.setAccountStatementDate(resultSet.getTimestamp("account_statement_date"));
+                    accountStatement.setReference(resultSet.getString("reference"));
+                    accountStatement.setMotif(resultSet.getString("motif"));
+                    accountStatement.setCreditMGA(resultSet.getDouble("credit_MGA"));
+                    accountStatement.setDebitMGA(resultSet.getDouble("debit_MGA"));
+                    accountStatement.setBalance(resultSet.getDouble("balance"));
+                    accountStatement.setIdAccount(resultSet.getObject("id_account", UUID.class));
+                    accountStatementById.add(accountStatement);
+                }
+            }
+        }
+        return accountStatementById;
+    }
+
+
+    @Override
     public AccountStatement save(AccountStatement toSave) throws SQLException {
         String sql = "INSERT INTO account_statement (id_account_statement, account_statement_date, reference, motif, credit_MGA, debit_MGA, balance, id_account) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 

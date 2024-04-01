@@ -1,6 +1,7 @@
 package hei.school.digitalbankapi.Service;
 
 
+import hei.school.digitalbankapi.Entity.Account;
 import hei.school.digitalbankapi.Entity.Transaction;
 import hei.school.digitalbankapi.Repository.CrudOperationsTransaction;
 import hei.school.digitalbankapi.Repository.TransactionInformations;
@@ -62,5 +63,9 @@ public class TransactionService {
                 "GROUP BY period " +
                 "ORDER BY period";
         return jdbcTemplate.queryForList(sql, groupBy, startDate, endDate, idAccount);
+    }
+
+    public List<Transaction> getTransactionById(UUID id) throws SQLException {
+        return repository.findById(id);
     }
 }

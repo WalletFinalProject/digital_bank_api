@@ -1,7 +1,10 @@
 package hei.school.digitalbankapi.Controller;
 
+import hei.school.digitalbankapi.Entity.AccountStatement;
+import hei.school.digitalbankapi.Entity.Transaction;
 import hei.school.digitalbankapi.Entity.Transfer;
 import hei.school.digitalbankapi.Service.TransferService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -34,5 +37,14 @@ public class TransferController {
     @DeleteMapping("/transfer/{id}")
     public void deleteTransfer(@PathVariable("id")UUID id) throws  SQLException{
         service.deleteAccount(id);
+    }
+
+    @GetMapping("/transfer/{id}")
+    public ResponseEntity<List<Transfer>> getTransferById(@PathVariable("id") UUID id) throws SQLException {
+        List<Transfer> transfers = service.getTransferById(id);
+        if (transfers == null || transfers.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(transfers);
     }
 }

@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public interface CrudOperations<T>{
     public List<T> findAll() throws SQLException;
+    public List<T> findById(UUID id) throws SQLException;
     public T save(T toSave) throws SQLException;
     public T update(UUID id, T toUpdate) throws SQLException;
     public void  delete(UUID id) throws SQLException;

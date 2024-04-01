@@ -45,6 +45,36 @@ public class CrudOperationsAccount implements CrudOperations<Account> {
 
         return allAccount;
     }
+
+    @Override
+    public List<Account> findById(UUID id) throws SQLException {
+        List<Account> accountById = new ArrayList<>();
+        String sql = "SELECT * FROM accounts WHERE id_account = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setObject(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Account account = new Account();
+                    account.setIdAccount(resultSet.getObject("id_account", UUID.class));
+                    account.setAuthorizeCredits(resultSet.getBoolean("authorize_credits"));
+                    account.setCreationDate(resultSet.getDate("creation_date"));
+                    account.setUpdateDate(resultSet.getDate("update_date"));
+                    account.setClientName(resultSet.getString("client_name"));
+                    account.setClientFirstname(resultSet.getString("client_firstname"));
+                    account.setBirthDate(resultSet.getDate("birth_date"));
+                    account.setNetMonthlySalary(resultSet.getDouble("net_monthly_salary"));
+                    account.setBalance(resultSet.getDouble("balance"));
+                    account.setCreditAmount(resultSet.getDouble("credit_amount"));
+
+                    accountById.add(account);
+                }
+            }
+        }
+        return accountById;
+    }
+
+
     @Override
     public Account save(Account toSave) throws SQLException {
         String sql = "INSERT INTO accounts (id_account, authorize_credits, creation_date, update_date, client_name, client_firstname, birth_date, net_monthly_salary,balance, credit_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

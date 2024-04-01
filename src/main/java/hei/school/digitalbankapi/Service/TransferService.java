@@ -1,6 +1,7 @@
 package hei.school.digitalbankapi.Service;
 
 
+import hei.school.digitalbankapi.Entity.Account;
 import hei.school.digitalbankapi.Entity.Transfer;
 import hei.school.digitalbankapi.Repository.CrudOperationsTransfer;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,9 @@ public class TransferService {
 
     public void deleteAccount(UUID id) throws  SQLException{
         repository.delete(id);
+    }
+
+    public List<Transfer> getTransferById(UUID id) throws SQLException {
+        return repository.findById(id);
     }
 }

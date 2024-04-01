@@ -1,6 +1,7 @@
 package hei.school.digitalbankapi.Repository;
 
 import hei.school.digitalbankapi.Entity.Account;
+import hei.school.digitalbankapi.Entity.AccountStatement;
 import hei.school.digitalbankapi.Entity.BalanceHistory;
 import org.springframework.stereotype.Repository;
 
@@ -37,6 +38,27 @@ public class CrudOperationsBalance implements CrudOperations<BalanceHistory>{
             }
     }
         return allBalanceHistory;
+    }
+
+    @Override
+    public List<BalanceHistory> findById(UUID id) throws SQLException {
+        List<BalanceHistory> balanceHistoryById = new ArrayList<>();
+        String sql = "SELECT * FROM balance_history WHERE id_balance_history = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setObject(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    BalanceHistory balanceHistory = new BalanceHistory();
+                    balanceHistory.setIdBalance(resultSet.getObject("id_balance_history", UUID.class));
+                    balanceHistory.setPrincipalAmount(resultSet.getDouble("principal_amount"));
+                    balanceHistory.setMoneyLoan(resultSet.getDouble("money_loan"));
+                    balanceHistory.setLoanInterest(resultSet.getDouble("loan_interest"));
+                    balanceHistoryById.add(balanceHistory);
+                }
+            }
+        }
+        return balanceHistoryById;
     }
 
     @Override
