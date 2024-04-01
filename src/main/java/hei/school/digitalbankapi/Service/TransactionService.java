@@ -4,10 +4,13 @@ package hei.school.digitalbankapi.Service;
 import hei.school.digitalbankapi.Entity.Transaction;
 import hei.school.digitalbankapi.Repository.CrudOperationsTransaction;
 import hei.school.digitalbankapi.Repository.TransactionInformations;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -15,10 +18,12 @@ public class TransactionService {
 
     private CrudOperationsTransaction repository;
     private TransactionInformations informations;
+    private JdbcTemplate jdbcTemplate;
 
-    public TransactionService(CrudOperationsTransaction repository, TransactionInformations informations) {
+    public TransactionService(CrudOperationsTransaction repository, TransactionInformations informations, JdbcTemplate jdbcTemplate) {
         this.repository = repository;
         this.informations = informations;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Transaction> getAllTransaction() throws SQLException {
@@ -38,5 +43,14 @@ public class TransactionService {
 
     public void deleteTransaction(UUID id) throws  SQLException{
         repository.delete(id);
+    }
+    public List<Map<String, Object>> getTransactionsByAccountAndCategory(UUID idAccount, LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT a.id_account, c.category_name, SUM(t.amount) as total " +
+                "FROM transactions t " +
+                "INNER JOIN category c ON t.id_transaction = c.id_transaction " +
+                "INNER JOIN accounts a ON t.id_account = a.id_account " +
+                "WHERE t.transaction_date >= ? AND t.transaction_date <= ? AND t.id_account = ? " +
+                "GROUP BY a.id_account, c.category_name";
+        return jdbcTemplate.queryForList(sql, startDate, endDate, idAccount);
     }
 }
