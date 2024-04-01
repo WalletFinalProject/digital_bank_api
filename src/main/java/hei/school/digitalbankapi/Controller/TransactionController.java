@@ -7,7 +7,9 @@ import hei.school.digitalbankapi.Service.TransactionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -41,6 +43,15 @@ public class TransactionController {
     @DeleteMapping("/transaction/{id}")
     public void deleteTransaction(@PathVariable("id") UUID id) throws SQLException{
         service.deleteTransaction(id);
+    }@GetMapping("/transactions/byCategory")
+    public List<Map<String, Object>> getTransactionsByCategory(
+            @RequestParam(required = false) UUID idAccount,
+            @RequestParam(required = false) LocalDate startDate,
+            @RequestParam(required = false) LocalDate endDate) {
+        if (startDate == null || endDate == null) {
+            startDate = LocalDate.now().withDayOfMonth(1);
+            endDate = LocalDate.now();
+        }
+        return service.getTransactionsByAccountAndCategory(idAccount, startDate, endDate);
     }
-
 }
