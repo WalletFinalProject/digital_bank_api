@@ -53,4 +53,14 @@ public class TransactionService {
                 "GROUP BY a.id_account, c.category_name";
         return jdbcTemplate.queryForList(sql, startDate, endDate, idAccount);
     }
+    public List<Map<String, Object>> getIncomeAndExpenses(UUID idAccount, LocalDate startDate, LocalDate endDate, String groupBy) {
+        String sql = "SELECT DATE_TRUNC(?, t.transaction_date) as period, " +
+                "SUM(CASE WHEN t.amount > 0 THEN t.amount ELSE 0 END) as income, " +
+                "SUM(CASE WHEN t.amount < 0 THEN t.amount ELSE 0 END) as expenses " +
+                "FROM transactions t " +
+                "WHERE t.transaction_date >= ? AND t.transaction_date <= ? AND t.id_account = ? " +
+                "GROUP BY period " +
+                "ORDER BY period";
+        return jdbcTemplate.queryForList(sql, groupBy, startDate, endDate, idAccount);
+    }
 }
