@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Digital Bank
   description: Digital Bank
-  version: 1.2.2
+  version: 2.0.0
 servers:
   - url: 'https://digital_bank.com'
 paths:
@@ -595,6 +595,76 @@ paths:
         403:
           $ref: '#/components/responses/403'
         500:
+          $ref: '#/components/responses/500'
+  /withdrawals/make:
+    post:
+      summary: Make a withdrawal from an account
+      description: A method to make a withdrawal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idAccount:
+                  type: string
+                  format: uuid
+                amount:
+                  type: number
+                  format: double
+      responses:
+        '200':
+          description: Withdrawal successfully completed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Withdrawal successfully completed. New balance: 1000.00"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+  /transactions/incoming-transfer:
+    post:
+      summary: Process an incoming transfer
+      description: Method to process an incoming transfer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountId:
+                  type: string
+                  format: uuid
+                amount:
+                  type: number
+                  format: double
+                motif:
+                  type: string
+                effectiveDate:
+                  type: string
+                  format: date-time
+                registrationDate:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: Incoming transfer successfully completed.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Incoming transfer successfully completed"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
           $ref: '#/components/responses/500'
 components:
   schemas:
