@@ -24,7 +24,7 @@ public class AccountController {
         return service.getAllAccount();
     }
 
-    @GetMapping("/accounts/{id}")
+    @GetMapping("/account/{id}")
     public ResponseEntity<List<Account>> getAccountsById(@PathVariable("id") UUID id) throws SQLException {
         List<Account> accounts = service.getAccountById(id);
         if (accounts == null || accounts.isEmpty()) {
