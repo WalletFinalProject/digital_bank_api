@@ -31,7 +31,7 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
             while (resultSet.next()){
                 allTransfer.add(new Transfer(
                         resultSet.getObject("id_transfer", UUID.class),
-                        resultSet.getObject("account_id_recipient", UUID.class),
+                        resultSet.getObject("id_account", UUID.class),
                         resultSet.getDouble("amount"),
                         resultSet.getString("transfer_reason"),
                         resultSet.getTimestamp("effective_date"),
