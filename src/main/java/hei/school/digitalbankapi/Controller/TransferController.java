@@ -3,6 +3,7 @@ package hei.school.digitalbankapi.Controller;
 import hei.school.digitalbankapi.Entity.AccountStatement;
 import hei.school.digitalbankapi.Entity.Transaction;
 import hei.school.digitalbankapi.Entity.Transfer;
+import hei.school.digitalbankapi.Entity.TransferRequest;
 import hei.school.digitalbankapi.Service.TransferService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +47,20 @@ public class TransferController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(transfers);
+    }
+
+    @PostMapping("/transferMoney")
+    public String transferMoney(@RequestBody TransferRequest transferRequest) {
+        try {
+            service.transferMoney(
+                    transferRequest.getIdAccountFrom(),
+                    transferRequest.getIdAccountTo(),
+                    transferRequest.getAmount(),
+                    transferRequest.getTransferReason()
+            );
+            return "Transfer successful.";
+        } catch (Exception e) {
+            return "Transfer failed: " + e.getMessage();
+        }
     }
 }

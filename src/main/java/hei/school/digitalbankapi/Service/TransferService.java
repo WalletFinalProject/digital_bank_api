@@ -40,5 +40,46 @@ public class TransferService {
         return repository.findById(id);
     }
 
+    public void transferMoney(UUID idAccountFrom, UUID idAccountTo, Double amount, String transferReason) throws Exception {
+
+        List<Account> accountsFrom = accountRepository.findById(idAccountFrom);
+        List<Account> accountsTo = accountRepository.findById(idAccountTo);
+
+        if (accountsFrom.isEmpty() || accountsTo.isEmpty()) {
+            throw new Exception("Account not found.");
+        }
+
+        Account fromAccount = accountsFrom.get(0);
+        Account toAccount = accountsTo.get(0);
+
+        if (!fromAccount.isAuthorizeCredits() || !toAccount.isAuthorizeCredits()) {
+            throw new Exception("Account not authorized to receive credits.");
+        }
+
+        if (fromAccount.getBalance() < amount) {
+            throw new Exception("Insufficient balance in the source account.");
+        }
+
+
+        fromAccount.setBalance(fromAccount.getBalance() - amount);
+        toAccount.setBalance(toAccount.getBalance() + amount);
+
+
+        accountRepository.update(idAccountFrom, fromAccount);
+        accountRepository.update(idAccountTo, toAccount);
+
+
+        Transfer transfer = new Transfer();
+        transfer.setAccountIdRecipient(idAccountTo);
+        transfer.setAmount(amount);
+        transfer.setTransferReason(transferReason);
+        transfer.setEffectiveDate(new java.sql.Timestamp(System.currentTimeMillis()));
+        transfer.setRegistrationDate(new java.sql.Timestamp(System.currentTimeMillis()));
+        transfer.setStatus("Done");
+
+        repository.save(transfer);
+    }
+
+
 
 }

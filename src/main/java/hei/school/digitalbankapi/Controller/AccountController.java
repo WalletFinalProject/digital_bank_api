@@ -33,10 +33,6 @@ public class AccountController {
         return ResponseEntity.ok(accounts);
     }
 
-
-
-
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/account")
     public Account createAccount(@RequestBody Account toSave) throws SQLException {
