@@ -113,4 +113,27 @@ public class CrudOperationsTransaction implements CrudOperations<Transaction>{
        preparedStatement.executeUpdate();
    }
     }
+    public List<Transaction> findByAccountId(UUID accountId) throws SQLException {
+        List<Transaction> transactionsByAccountId = new ArrayList<>();
+        String sql = "SELECT * FROM transactions WHERE id_account = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setObject(1, accountId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Transaction transaction = new Transaction(
+                            resultSet.getObject("id_transaction", UUID.class),
+                            resultSet.getTimestamp("transaction_date"),
+                            resultSet.getDouble("amount"),
+                            resultSet.getString("transaction_type"),
+                            resultSet.getString("label"),
+                            resultSet.getObject("id_account", UUID.class)
+                    );
+                    transactionsByAccountId.add(transaction);
+                }
+            }
+        }
+        return transactionsByAccountId;
+    }
+
 }

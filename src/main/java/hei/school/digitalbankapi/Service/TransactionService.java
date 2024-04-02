@@ -68,4 +68,7 @@ public class TransactionService {
     public List<Transaction> getTransactionById(UUID id) throws SQLException {
         return repository.findById(id);
     }
+    public List<Transaction> getTransactionsByAccountId(UUID accountId) throws SQLException {
+        return repository.findByAccountId(accountId);
+    }
 }

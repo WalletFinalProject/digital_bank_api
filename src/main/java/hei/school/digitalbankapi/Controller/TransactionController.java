@@ -74,5 +74,12 @@ public class TransactionController {
         List<Map<String, Object>> data = service.getIncomeAndExpenses(idAccount, startDate, endDate, groupBy);
         return ResponseEntity.ok(data);
     }
-
+    @GetMapping("/transaction/account/{accountId}")
+    public ResponseEntity<List<Transaction>> getTransactionsByAccountId(@PathVariable UUID accountId) throws SQLException {
+        List<Transaction> transactions = service.getTransactionsByAccountId(accountId);
+        if (transactions == null || transactions.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(transactions);
+    }
 }
