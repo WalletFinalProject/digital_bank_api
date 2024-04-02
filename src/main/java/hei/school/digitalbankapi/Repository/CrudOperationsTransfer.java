@@ -30,7 +30,7 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 allTransfer.add(new Transfer(
-                        resultSet.getObject("id_transfer", UUID.class),
+                        resultSet.getInt("id_transfer"),
                         resultSet.getObject("id_account", UUID.class),
                         resultSet.getDouble("amount"),
                         resultSet.getString("transfer_reason"),
@@ -57,7 +57,7 @@ public class CrudOperationsTransfer implements CrudOperations<Transfer>{
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Transfer transfer = new Transfer();
-                    transfer.setIdTransfert(resultSet.getObject("id_transfer", UUID.class));
+                    transfer.setIdTransfert(resultSet.getInt("id_transfer"));
                     transfer.setAccountIdRecipient(resultSet.getObject("id_account", UUID.class));
                     transfer.setAmount(resultSet.getDouble("amount"));
                     transfer.setTransferReason(resultSet.getString("transfer_reason"));

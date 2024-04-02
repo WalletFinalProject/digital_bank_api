@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class Transfer {
-    private UUID idTransfert;
+    private int idTransfert;
     private UUID accountIdRecipient;
     private Double amount;
     private String transferReason;
